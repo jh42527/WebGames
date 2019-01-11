@@ -5,7 +5,7 @@ JS Canvas Gaming Examples
 Flight Simulator
 
 ## Moonlander
-Lunar Lander Var
+Lunar Lander
 
 ## Platformer
 2d Platformer
