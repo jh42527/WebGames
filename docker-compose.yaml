@@ -1,0 +1,6 @@
+version: '3'
+services:
+  js_games:
+    image: js_games
+    ports:
+      - 8080:8080
