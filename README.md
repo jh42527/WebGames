@@ -10,16 +10,14 @@ Lunar Lander Var
 ## Platformer
 2d Platformer
 
+# Run
+No assembly required!  Just open `index.html` in each games folder.  Use Chrome Developer Tools to debug while running.
+
 # Build
-No assembly required!  Just open each games index.html
 
-# Debug
-Open Chrome Developer Tools while running
+## Container
+Build container using command:
 
-# Host
+`docker build js_games .`
 
-## Build Container
-docker build js_games .
-
-## Run Container
-docker-compose up
+Runs on port 8080
