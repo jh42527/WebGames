@@ -26,54 +26,52 @@ class sprite {
 }
 
 class map {
-    constructor(width) {
-        this.width = width;
+    constructor(color) {
+        this.maze =  [ 
+            [0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0],
+            [0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,1],
+            [0,0,1,1,1,0,0,1,1,0,0,1,0,0,0,0,1,0,0,1],
+            [0,0,1,0,1,0,0,1,1,0,0,1,0,0,0,0,1,0,0,1],
+            [0,0,1,0,1,1,0,1,0,0,0,1,1,1,0,0,1,0,0,0],
+            [0,0,1,1,0,1,1,0,0,0,0,0,0,1,0,0,1,1,1,1],
+            [0,0,0,1,1,0,1,1,1,1,1,1,0,0,0,0,0,1,0,1],
+            [0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,1]
+        ];        
 
-        this.tiles = [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-        ];
-
-        this.groundcolor = "#6f7b8e";
-
-        this.stonetile = new Image();
-        this.stonetile.src = 'content/img/stone-tile.png';
+        this.color = color;
     }
 
     draw(ctx, width, height) {
+        // Maze Size
+        let mazeWidth = this.maze[0].length;
+        let mazeHeight = this.maze.length;
+
         // Chunk Size
-        let chunkWidthSize = width / (this.tiles[0].length - 1);
+        let chunkWidth = width / mazeWidth;
+        let chunkHeight = height / mazeHeight;
 
-        let chunkHeightSize = height / (this.tiles.length - 1);
-
-        // Draw Tiles
-        for (var i = 0; i < this.tiles.length; i++) {
-            var innerArrayLength = this.tiles[i].length;
-
-            for (var j = 0; j < innerArrayLength; j++) {
-                if(this.tiles[i][j] == 1) {
-                    ctx.drawImage(this.stonetile, i * chunkWidthSize, j * chunkHeightSize, chunkWidthSize, chunkHeightSize);
+        // Draw maze
+        for (var x = 0; x < mazeWidth; x++) {
+            for (var y = 0; y < mazeHeight; y++) {
+                if(this.maze[x][y] == 1) {
+                    ctx.fillStyle = this.color;
+                    ctx.fillRect(x * chunkWidth, y * chunkHeight, chunkWidth, chunkHeight);
                 }
             }
         }
     }
 }
 
-class background {
-    
-    constructor() {
-        this.image = new Image();
-        this.image.src = 'content/img/pixel-background.png';
+class background {    
+    constructor(color) {
+        this.color = color;
     }
 
     draw(ctx, width, height) {
-        ctx.drawImage(this.image, 0, 0, width, height, 0, 0, width, height);
+        ctx.fillStyle = this.color;
+        ctx.fillRect(0, 0, width, height);
     }
 }
 
@@ -82,19 +80,18 @@ class Game {
         console.log("Game Started");
 
         this.canvas = document.getElementById("canvas");
+        
         this.ctx = canvas.getContext('2d');
 
         this.keys = [];
 
         this.paused = false;
 
-        this.chunks = 64;
-
         this.debug = false;
 
-        this.background = new background();
+        this.background = new background("black");
 
-        this.map = new map(this.chunks);
+        this.map = new map("blue");
 
         this.sprite = new sprite(256, 256);
 
@@ -146,7 +143,7 @@ class Game {
 
         // Draw Health Bar
         this.ctx.font = "small-caps 10px 'Press Start 2P'";
-        this.ctx.fillStyle = "black";
+        this.ctx.fillStyle = "white";
         this.ctx.textBaseline = "top";
         this.ctx.fillText("HEALTH", 10, 9);
         this.ctx.fillStyle = "red";
