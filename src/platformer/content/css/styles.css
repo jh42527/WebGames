@@ -5,4 +5,18 @@ html, body {
   height: 100%;
   margin: 0px;
   overflow: hidden;
+  background-color: darkslategrey;
+  text-align: center;
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+}
+
+#canvas {
+  border-style: double;
+  margin-top: 50px;
+  background-image: url('../img/background.jpg');
+}
+
+audio {
+  display: none;
 }

@@ -9,7 +9,22 @@
 </head>
 
 <body>
+  <div>
+    <h1>Coronavirus Run</h1>
+  </div>
+
+  <div>
+    <input value="Start" onclick="game.start()" type="button" />
+    <input value="Stop" onclick="game.stop()" type="button" />
+    <input value="Reset" onclick="game.reset()" type="button" />
+  </div>
+
   <canvas id="canvas" class="canvas"></canvas>
+
+  <audio id="audio">
+      <source src="content/music/land-of-8bit.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+  </audio>
   
   <script src="scripts/eightbit.js"></script>
 </body>
