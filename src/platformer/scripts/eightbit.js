@@ -111,6 +111,7 @@ class Game {
         console.log("Game Started");
 
         this.canvas = document.getElementById("canvas");
+        
         this.ctx = canvas.getContext('2d');
 
         this.audio = document.getElementById("audio")
@@ -123,8 +124,6 @@ class Game {
         this.keys = [];
 
         this.paused = false;
-
-        this.chunks = 64;
 
         this.debug = false;
 
@@ -168,7 +167,7 @@ class Game {
 
         // Draw Health Bar
         this.ctx.font = "small-caps 10px 'Press Start 2P'";
-        this.ctx.fillStyle = "black";
+        this.ctx.fillStyle = "white";
         this.ctx.textBaseline = "top";
         this.ctx.fillText("HEALTH", 10, 9);
         this.ctx.fillStyle = "red";
